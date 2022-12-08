@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Todolist</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+  <script text="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular.min.js"></script>
+</head>
+<body>
+  <div class="main" ng-app="myShoppingList" ng-controller="myCtrl">
+    <h1>Todo List App</h1>
+    <div class="search">
+        <input type="text" placeholder="Add Todo" ng-model="addMe">
+        <span ng-click="addItem()"><i class="fas fa-plus"></i></span>
+    </div>
+    <ul>
+        <li ng-repeat="x in products">
+            {{x}}
+            <i ng-click="removeItem($index)" class="fas fa-trash-alt"></i>
+        </li>
+    </ul>
+    <p>
+        {{errortext}}
+    </p>
+</div>
+
+<script type="text/javascript">
+    var app = angular.module("myShoppingList", []);
+    app.controller("myCtrl", function($scope) {
+        $scope.products = ["Morning Walk", "Learn Japanese", "Morning Lecture", "Coding", "Reading", "Night Lecture", "Onii Chan Baka"];
+        $scope.addItem = function() {
+            $scope.errortext = "";
+            if (!$scope.addMe) {return;}
+            if ($scope.products.indexOf($scope.addMe) == -1) {
+                $scope.products.push($scope.addMe);
+            }
+            else {
+                $scope.errortext = "This item is already in your Todo List";
+            }
+        }
+        $scope.removeItem = function(x) {
+            $scope.products.splice(x,1);
+        }
+    });
+</script>
+
+  <!-- <app-root></app-root> -->
+</body>
+</html>
